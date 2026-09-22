@@ -1,0 +1,10 @@
+# TP_01 — De-rusting ML. Tested 2026-09-22 with Python 3.12:
+# numpy 2.5.3, pandas 3.0.6, scikit-learn 1.9.1, scipy 1.18.1, matplotlib 3.11.2, joblib 1.6.0, skops 0.15.0
+# TP_02 serves the exported TP_01_model.pkl with scikit-learn 1.5.1, so don't go below 1.5.
+numpy>=1.26
+pandas>=2.2
+scikit-learn>=1.5,<2
+scipy>=1.11
+matplotlib>=3.8
+joblib>=1.3
+skops>=0.10
