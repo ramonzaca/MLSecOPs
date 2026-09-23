@@ -1,0 +1,9 @@
+# scikit-learn is installed separately by the Dockerfile (build arg SKLEARN_VERSION),
+# because it must match the version the model was trained with.
+fastapi==0.141.1
+uvicorn==0.53.0
+pydantic==2.13.5
+pandas==3.0.6
+numpy==2.5.3
+joblib==1.6.0
+skops==0.15.0
