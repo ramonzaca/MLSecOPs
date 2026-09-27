@@ -1,0 +1,11 @@
+# TP_04 — Bias and explainability. Tested 2026-09-27 with Python 3.12:
+# shap 0.52.0, scikit-learn 1.9.1, pandas 3.0.6, numpy 2.5.3, scipy 1.18.1, matplotlib 3.11.2, skops 0.16.0
+# SHAP's API changes between minor versions: keep it pinned.
+shap==0.52.0
+# Exercise 1 loads the TP_01 model: use the same scikit-learn version as TP_01
+scikit-learn>=1.5,<2
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11
+matplotlib>=3.8
+skops>=0.10
