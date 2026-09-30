@@ -1,0 +1,4 @@
+# TP_06 — LLM prompt injection. Tested 2026-09-29 with Python 3.12 and Ollama 0.12
+# running qwen2.5:3b locally. The notebook needs only the Ollama Python client;
+# everything else (html, re, sqlite3, textwrap) is in the standard library.
+ollama>=0.6,<0.7
