@@ -123,6 +123,29 @@ The tests check that the API returns the predictions documented above, rejects i
 ## Exercises
 
 1. Start the API with `-e MODEL_SHA256=` set to a wrong value. What happens? Why is it better for the API to refuse to start than to start with a warning?
-2. Send a request with `households = 0` to the **original** API (`TP_02/app`) and to this one. Explain the difference, and what happens inside the model.
+2. **The same bad input, two ways of running the model.** You'll send one district with `households = 0` to your model twice:
+
+   - **A. Directly in Python, in the TP_01 notebook.** This is how you ran the model in TP_01 to evaluate it. Open your TP_01 notebook (v3) and go to the end, after the *Contract check* cell, where `my_model_loaded` and `some_data` exist. Add a cell with:
+
+     ```python
+     bad_district = some_data.iloc[[0]].copy()   # first district of request_example.json
+     bad_district["households"] = 0
+     my_model_loaded.predict(bad_district)
+     ```
+
+   - **B. Through the Docker API of this folder (`TP_02/v3`).** With the container running (see *Getting Started*), send the same district, which is saved in `request_households_zero.json`:
+
+     ```bash
+     curl -i -X POST http://localhost:8000/predict \
+          -H "Content-Type: application/json" \
+          -d @request_households_zero.json
+     ```
+
+     Then look at the container's logs (`docker logs <container>`).
+
+   Questions:
+   - What do A and B each return? Note the error type or the HTTP status code, and the message.
+   - The model computes `rooms_per_household = total_rooms / households` (the `CombinedAttributesAdder` step from TP_01). What does that division give with `households = 0`, and at which step of the pipeline does it fail?
+   - In B, the request never reaches the model. Which part of `app/` stops it, and why is this the right place for that check, rather than inside the model?
 3. Run `docker exec <container> id` and try to modify `/app/main.py` from inside the container. Why does it matter?
 4. What is still missing before this API could be exposed on the Internet? (Hint: who is allowed to call it, and how often?)

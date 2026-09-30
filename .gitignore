@@ -1,2 +1,9 @@
 .ruff_cache
 .venv
+*.xml
+*.DS_Store
+1.txt
+2.txt
+3.txt
+*.pkl
+*.skops
