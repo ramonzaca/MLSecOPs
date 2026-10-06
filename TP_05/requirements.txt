@@ -1,0 +1,14 @@
+# TP_05 — Poisoning attacks (training data + RAG). Tested 2026-10-05 with Python 3.12:
+# tensorflow 2.21.0 (keras 3.15.1), adversarial-robustness-toolbox 1.20.1, librosa 1.0.0,
+# numpy 2.5.3, scikit-learn 1.9.1, ollama 0.6.x; Ollama server 0.34 with qwen2.5:3b + nomic-embed-text.
+# Colab ships TensorFlow already: the range below accepts its version instead of reinstalling it.
+tensorflow>=2.16,<3
+# ART's API changes between minor versions: keep it pinned.
+adversarial-robustness-toolbox==1.20.1
+librosa>=0.10
+numpy>=1.26
+scikit-learn>=1.5,<2
+ollama>=0.6,<0.7
+# On macOS, pyarrow 21 (pulled in via pandas by earlier TPs) makes `import tensorflow` abort with
+# "mutex lock failed: Invalid argument". Verified 2026-10-06: 21.0.0 crashes, 22–25 work.
+pyarrow>=22; sys_platform == "darwin"
