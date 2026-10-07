@@ -11,13 +11,22 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "app"))
 
 if not (ROOT / "app" / "models" / "TP_01_model.skops").is_file():
-    pytest.skip("app/models/TP_01_model.skops not found (export it from TP_01)", allow_module_level=True)
+    pytest.skip(
+        "app/models/TP_01_model.skops not found (export it from TP_01)",
+        allow_module_level=True,
+    )
 
 from main import app  # noqa: E402
 
 EXAMPLE = json.loads((ROOT / "request_example.json").read_text())
 # Documented in README.md: what the TP_01 model returns for request_example.json
-EXPECTED = [85657.90192014378, 305492.60737487697, 152056.4612245569, 186095.709460944, 244550.67966088964]
+EXPECTED = [
+    85657.90192014378,
+    305492.60737487697,
+    152056.4612245569,
+    186095.709460944,
+    244550.67966088964,
+]
 VALID_ROW = EXAMPLE["features"][0]
 
 
@@ -65,6 +74,10 @@ def test_invalid_input_is_rejected_with_422(client, payload):
 
 
 def test_non_finite_json_is_rejected(client):
-    body = json.dumps(with_value(0, float("nan")))  # Python writes NaN, which is not valid JSON
-    resp = client.post("/predict", content=body, headers={"content-type": "application/json"})
+    body = json.dumps(
+        with_value(0, float("nan"))
+    )  # Python writes NaN, which is not valid JSON
+    resp = client.post(
+        "/predict", content=body, headers={"content-type": "application/json"}
+    )
     assert resp.status_code == 422

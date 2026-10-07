@@ -18,7 +18,9 @@ import __main__
 # Making the class available under that name lets the loader find it.
 __main__.CombinedAttributesAdder = CombinedAttributesAdder
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s:     %(name)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(levelname)s:     %(name)s - %(message)s"
+)
 logger = logging.getLogger("tp02")
 
 APP_DIR = Path(__file__).resolve().parent
@@ -30,7 +32,9 @@ MAX_BATCH_SIZE = int(os.environ.get("MAX_BATCH_SIZE", "1000"))
 # ---- Input schema: one district = 9 values, in the order of model.MODELS_COLUMNS
 Finite = Annotated[float, Field(allow_inf_nan=False)]
 NonNegative = Annotated[float, Field(ge=0, allow_inf_nan=False)]
-Positive = Annotated[float, Field(gt=0, allow_inf_nan=False)]  # used as a divisor by the model
+Positive = Annotated[
+    float, Field(gt=0, allow_inf_nan=False)
+]  # used as a divisor by the model
 OceanProximity = Literal["<1H OCEAN", "INLAND", "ISLAND", "NEAR BAY", "NEAR OCEAN"]
 
 District = tuple[
@@ -60,10 +64,14 @@ model = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global model
-    model = load_model(MODEL_PATH, expected_sha256=MODEL_SHA256, allow_pickle=ALLOW_PICKLE)
+    model = load_model(
+        MODEL_PATH, expected_sha256=MODEL_SHA256, allow_pickle=ALLOW_PICKLE
+    )
     # The API only accepts the categories listed in OceanProximity: they must match the model's
     if model_categories(model) != set(get_args(OceanProximity)):
-        raise RuntimeError(f"model categories {model_categories(model)} don't match the API schema")
+        raise RuntimeError(
+            f"model categories {model_categories(model)} don't match the API schema"
+        )
     logger.info("model loaded, API ready")
     yield
 
@@ -84,7 +92,9 @@ def get_prediction(data: InputData) -> Prediction:
     prediction = predict(model, data.features)
     if not np.all(np.isfinite(prediction)):
         # Never return NaN/inf: it isn't valid JSON and hides a problem upstream
-        raise HTTPException(status_code=500, detail="the model produced a non-finite prediction")
+        raise HTTPException(
+            status_code=500, detail="the model produced a non-finite prediction"
+        )
     return Prediction(prediction=prediction.tolist())
 
 

@@ -13,7 +13,9 @@ import main  # noqa: E402,F401  (registers __main__.CombinedAttributesAdder)
 from model import ModelLoadingError, load_model, sha256sum  # noqa: E402
 
 SKOPS_MODEL = ROOT / "app" / "models" / "TP_01_model.skops"
-needs_model = pytest.mark.skipif(not SKOPS_MODEL.is_file(), reason="export TP_01_model.skops from TP_01 first")
+needs_model = pytest.mark.skipif(
+    not SKOPS_MODEL.is_file(), reason="export TP_01_model.skops from TP_01 first"
+)
 
 
 def test_pickle_is_refused_by_default(tmp_path):

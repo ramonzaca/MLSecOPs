@@ -47,7 +47,9 @@ def load_model(model_path, expected_sha256=None, allow_pickle=False):
     digest = sha256sum(model_path)
     logger.info("model %s sha256=%s", model_path.name, digest)
     if expected_sha256 and digest != expected_sha256.lower():
-        raise ModelLoadingError(f"model checksum mismatch: expected {expected_sha256}, got {digest}")
+        raise ModelLoadingError(
+            f"model checksum mismatch: expected {expected_sha256}, got {digest}"
+        )
 
     # 2. Format: skops refuses unknown types; pickle executes whatever the file contains
     with warnings.catch_warnings():
@@ -62,7 +64,9 @@ def load_model(model_path, expected_sha256=None, allow_pickle=False):
                         "refusing to load a pickle: loading it can execute arbitrary code. "
                         "Use the .skops export from TP_01, or set ALLOW_PICKLE=1 if you trust this file."
                     )
-                logger.warning("loading a pickle file (ALLOW_PICKLE=1): only do this with files you trust")
+                logger.warning(
+                    "loading a pickle file (ALLOW_PICKLE=1): only do this with files you trust"
+                )
                 import joblib
 
                 return joblib.load(model_path)
@@ -72,7 +76,9 @@ def load_model(model_path, expected_sha256=None, allow_pickle=False):
                 f"{w.current_sklearn_version}. Rebuild with "
                 f"`docker build --build-arg SKLEARN_VERSION={w.original_sklearn_version} ...`"
             ) from None
-    raise ModelLoadingError(f"unsupported model format: {model_path.suffix} (expected .skops or .pkl)")
+    raise ModelLoadingError(
+        f"unsupported model format: {model_path.suffix} (expected .skops or .pkl)"
+    )
 
 
 def model_categories(model):
