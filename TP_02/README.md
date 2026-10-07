@@ -1,4 +1,4 @@
-# FastAPI ML Model Serving (v3)
+# FastAPI ML Model Serving
 
 This project serves the housing-price model from TP_01 as an HTTP API, using FastAPI and Docker.
 
@@ -22,7 +22,7 @@ Compared with a "just make it work" deployment, this version adds the basic safe
 1. Clone this repository:
    ```
    git clone https://github.com/ramonzaca/MLSecOPs.git
-   cd MLSecOPs/TP_02/v3
+   cd MLSecOPs/TP_02
    ```
 
 2. Place your model in the **`app/models/`** directory:
@@ -133,7 +133,7 @@ The tests check that the API returns the predictions documented above, rejects i
      my_model_loaded.predict(bad_district)
      ```
 
-   - **B. Through the Docker API of this folder (`TP_02/v3`).** With the container running (see *Getting Started*), send the same district, which is saved in `request_households_zero.json`:
+   - **B. Through the Docker API of this folder (`TP_02/`).** With the container running (see *Getting Started*), send the same district, which is saved in `request_households_zero.json`:
 
      ```bash
      curl -i -X POST http://localhost:8000/predict \
@@ -149,3 +149,7 @@ The tests check that the API returns the predictions documented above, rejects i
    - In B, the request never reaches the model. Which part of `app/` stops it, and why is this the right place for that check, rather than inside the model?
 3. Run `docker exec <container> id` and try to modify `/app/main.py` from inside the container. Why does it matter?
 4. What is still missing before this API could be exposed on the Internet? (Hint: who is allowed to call it, and how often?)
+
+## Submission
+
+Fill in [`RENDU_TEMPLATE.md`](RENDU_TEMPLATE.md) and submit it on e-campus as `TP02_NOM_Prenom.md` (or `.pdf`). Do not include the model file, only its SHA-256.

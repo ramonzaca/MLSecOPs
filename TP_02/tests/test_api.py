@@ -1,4 +1,4 @@
-"""Run from TP_02/v3 with the model in app/models/:  pytest"""
+"""Run from TP_02 with the model in app/models/:  pytest"""
 
 import json
 import sys
